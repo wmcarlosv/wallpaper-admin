@@ -17,7 +17,13 @@ class UsersTableSeeder extends Seeder
         		'email' => 'cvargas@frontuari.net',
         		'password' => bcrypt('Car2244los*'),
         		'role' => 'administrator'
-        	]
+        	],
+            [
+                'name' => 'operator',
+                'email' => 'operator@frontuari.net',
+                'password' => bcrypt('operator'),
+                'role' => 'operator'
+            ]
         ]);
     }
 }

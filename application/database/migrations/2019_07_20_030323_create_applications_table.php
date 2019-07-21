@@ -17,6 +17,7 @@ class CreateApplicationsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->string('name',120)->nullable(false);
+            $table->string('slug',250)->nullable(false);
             $table->text('description');
             $table->string('icon',100)->nullable();
             $table->string('current_version',10)->nullable(false);

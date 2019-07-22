@@ -27,7 +27,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 
 	Route::resource('applications','ApplicationsController');
 	Route::get('settings','ApplicationsController@settings')->name('settings');
-	Route::get('update-settings/{id}','ApplicationsController@update_settings')->name('update_settings');
 
 	Route::resource('categories','CategoriesController');
 	Route::resource('wallpapers','WallpapersController');

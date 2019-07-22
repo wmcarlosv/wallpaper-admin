@@ -13,4 +13,12 @@ class Application extends Model
     public function user(){
     	return $this->belongsTo('App\User');
     }
+
+    public function categories(){
+    	return $this->hasMany('App\Category');
+    }
+
+    public function wallpapers(){
+    	return $this->hasMany('App\Wallpaper');
+    }
 }

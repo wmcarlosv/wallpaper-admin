@@ -26,7 +26,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 	Route::put('change-password/{id}','UsersController@update_password')->name('update_password');
 
 	Route::resource('applications','ApplicationsController');
-	Route::get('settings','ApplicationsController@settings')->name('settings');
+
+	Route::get('/application/{slug}','ApplicationsController@application_dashboard')->name('application_dashboard');
 
 	Route::resource('categories','CategoriesController');
 	Route::resource('wallpapers','WallpapersController');

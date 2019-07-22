@@ -195,4 +195,10 @@ class ApplicationsController extends Controller
 
         return redirect()->route($this->router);
     }
+
+    public function application_dashboard($slug){
+        $data = Application::where('slug','=',$slug)->first();
+        $title = $data->name;
+        return view($this->view."dashboard",['title' => $title, 'data' => $data]);
+    }
 }

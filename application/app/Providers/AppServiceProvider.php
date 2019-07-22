@@ -27,22 +27,19 @@ class AppServiceProvider extends ServiceProvider
     {
         $events->Listen(BuildingMenu::class, function(BuildingMenu $event){
             $event->menu->add('MAIN MENU');
-            $event->menu->add(
-                [
-                    'text' => 'dashboard',
-                    'route' => 'home',
-                    'icon' => 'dashboard'
-                ],
-                [
-                    'text' => 'Profile',
-                    'route' => 'profile',
-                    'icon' => 'user'
-                ]
-            );
-
             $role = Auth::user()->role;
             if($role == 'administrator'){
                 $event->menu->add(
+                    [
+                        'text' => 'dashboard',
+                        'route' => 'home',
+                        'icon' => 'dashboard'
+                    ],
+                    [
+                        'text' => 'Profile',
+                        'route' => 'profile',
+                        'icon' => 'user'
+                    ],
                     [
                         'text' => 'Users',
                         'route' => 'users.index',
@@ -56,22 +53,17 @@ class AppServiceProvider extends ServiceProvider
                 );
             }else{
                 $event->menu->add(
-                    [
-                        'text' => 'Categories',
-                        'route' => 'categories.index',
-                        'icon' => 'list'
-                    ],
-                    [
-                        'text' => 'Wallpapers',
-                        'route' => 'wallpapers.index',
-                        'icon' => 'image'
-                    ],
-                    [
-                        'text' => 'Settings',
-                        'route' => 'settings',
-                        'icon' => 'cog'
-                    ]
-                );
+                [
+                    'text' => 'Aplications',
+                    'route' => 'home',
+                    'icon' => 'gamepad'
+                ],
+                [
+                    'text' => 'Profile',
+                    'route' => 'profile',
+                    'icon' => 'user'
+                ]
+            );
             }
         });
     }

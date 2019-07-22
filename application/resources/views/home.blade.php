@@ -4,10 +4,6 @@
 
 @include('flash::message')
 
-@section('content_header')
-    <h1>{{ $title }}</h1>
-@stop
-
 @section('content')
 	@if(Auth::user()->role == 'administrator')
 	    <div class="row">
@@ -72,7 +68,32 @@
 	    	</div>
 	    </div>
     @else
-
+    @section('content_header')
+	    <h1>Applications</h1>
+	@stop
+    <div class="row">
+    	@foreach(Auth::user()->applications as $app)
+	    	<div class="col-md-6">
+		    	 <a href="{{ route('application_dashboard',$app->slug) }}">
+		          <div class="box box-widget widget-user-2">
+		            <div class="widget-user-header bg-yellow">
+		              <div class="widget-user-image">
+		                <img class="img-circle" src="{{ asset('application/storage/app/'.$app->icon) }}" alt="User Avatar">
+		              </div>
+		              <h3 class="widget-user-username">{{ $app->name }}</h3>
+		              <h5 class="widget-user-desc">Version: {{ $app->current_version }}</h5>
+		            </div>
+		            <div class="box-footer no-padding">
+		              <ul class="nav nav-stacked">
+		                <li><a href="#">Categories <span class="pull-right badge bg-blue">{{ $app->categories->count() }}</span></a></li>
+		                <li><a href="#">Wallpapers <span class="pull-right badge bg-red">{{ $app->wallpapers->count() }}</span></a></li>
+		              </ul>
+		            </div>
+		          </div>
+		      	</a>
+		    </div>
+	    @endforeach
+    </div>
     @endif
 @stop
 @section('js')

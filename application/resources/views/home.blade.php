@@ -17,7 +17,7 @@
 				  <span class="info-box-icon bg-blue"><i class="fa fa-gamepad"></i></span>
 				  <div class="info-box-content">
 				    <span class="info-box-text">Applications</span>
-				    <span class="info-box-number">0</span>
+				    <span class="info-box-number">{{ $applications->count() }}</span>
 				  </div>
 				  <!-- /.info-box-content -->
 				</div>
@@ -30,7 +30,7 @@
 				  <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
 				  <div class="info-box-content">
 				    <span class="info-box-text">Users</span>
-				    <span class="info-box-number">0</span>
+				    <span class="info-box-number">{{ $users->count() }}</span>
 				  </div>
 				  <!-- /.info-box-content -->
 				</div>

@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->bigInteger('application_id')->unsigned();
             $table->string('name',160)->nullable(false);
             $table->string('cover',100)->nullable();
+            $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();
 
             $table->foreign('application_id')->references('id')->on('applications')->onUpdate('restrict')->onDelete('restrict');

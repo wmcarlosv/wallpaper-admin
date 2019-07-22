@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -149,13 +150,44 @@ class UsersController extends Controller
 
     public function profile(){
 
+        $title = "Edit Profile";
+        return view($this->view.'profile',['title' => $title, 'data' => Auth::user()]);
+
     }
 
     public function update_profile(Request $request, $id){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required'
+        ]);
 
+        $object = User::findorfail($id);
+        $object->name = $request->input('name');
+        $object->email = $request->input('email');
+        
+        if($object->update()){
+            flash()->overlay('Updated Successfully!!','Alert');
+        }else{
+            flash()->overlay('Error to Updated!!','Error');
+        }
+
+        return redirect()->route('home');
     }
 
     public function update_password(Request $request, $id){
+        $request->validate([
+            'password' => 'required|confirmed'
+        ]);
 
+        $object = User::findorfail($id);
+        $object->password = bcrypt($request->input('password'));
+
+        if($object->update()){
+            flash()->overlay('Updated Successfully!!','Alert');
+        }else{
+            flash()->overlay('Error to Updated!!','Error');
+        }
+
+        return redirect()->route('home');
     }
 }

@@ -23,7 +23,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 	Route::resource('users','UsersController');
 	Route::get('profile','UsersController@profile')->name('profile');
 	Route::put('update-profile/{id}','UsersController@update_profile')->name('update_profile');
-	Route::put('change-password/{id}','UsersController@change_password')->name('change_password');
+	Route::put('change-password/{id}','UsersController@update_password')->name('update_password');
 
 	Route::resource('applications','ApplicationsController');
 	Route::get('settings','ApplicationsController@settings')->name('settings');

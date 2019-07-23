@@ -57,7 +57,16 @@
                             <th>Thumbnail</th>
                             <th>View</th>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                            @foreach($data->wallpapers() as $wall)
+                                <tr>
+                                    <td>{{ $wall->id }}</td>
+                                    <td>{{ $wall->category->name }}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>

@@ -18,27 +18,27 @@
     	</div>
     	<div class="panel-body">
     		@if($action == 'create')
-    			{!! Form::open(['route' => 'users.store', 'method' => 'POST']) !!}
+    			{!! Form::open(['route' => 'categories.store', 'method' => 'POST', 'files' => true]) !!}
     		@else
-    			{!! Form::open(['route' => ['users.update',$data->id], 'method' => 'PUT']) !!}
+    			{!! Form::open(['route' => ['categories.update',$data->id], 'method' => 'PUT', 'files' => true]) !!}
     		@endif
     			<div class="form-group">
     				<label for="name">Name:</label>
     				<input type="text" name="name" class="form-control" value="{{ @$data->name }}" />
     			</div>
-    			<div class="form-group">
-    				<label for="email">Email:</label>
-    				<input type="email" name="email" class="form-control" value="{{ @$data->email }}" />
-    			</div>
-    			<div class="form-group">
-    				<label for="role">Role:</label>
-    				<select class="form-control" name="role" id="role">
-    					<option value="administrator" @if(@$data->role == 'administrator') selected='selected' @endif>Administrator</option>
-    					<option value="operator" @if(@$data->role == 'operator') selected='selected' @endif>Operator</option>
-    				</select>
-    			</div>
+                <div class="form-group">
+                    <label for="cover">Cover:</label>
+                    @if(!empty(@$data->cover))
+                        <br />
+                        <img src="{{ asset('application/storage/app/'.@$data->cover) }}" class="img-thumbnail" width="100" height="100" />
+                        <br />
+                        <br />
+                    @endif
+                    <input type="file" name="cover" class="form-control"/>
+                    <input type="hidden" name="application_id" value="{{ $application->id }}">
+                </div>
     			<button class="btn btn-success"><i class="fa fa-floppy-o"></i> Save</button>
-    			<a class="btn btn-danger" href="{{ route('users.index') }}"><i class="fa fa-times"></i> Cancel</a>
+    			<a class="btn btn-danger" href="{{ route('categories.index',$application->slug) }}"><i class="fa fa-times"></i> Cancel</a>
     		{!! Form::close() !!}
     	</div>
     </div>

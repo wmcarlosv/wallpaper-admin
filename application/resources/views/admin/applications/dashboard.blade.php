@@ -40,8 +40,8 @@
         <div class="col-md-3">
             <ul class="list-group">
               <li class="list-group-item"><center>Menu</center></li>
-              <li class="list-group-item"><a href="{{ route('categories.index') }}"><i class="fa fa-list"></i> Categories</a></li>
-              <li class="list-group-item"><a href="{{ route('wallpapers.index') }}"><i class="fa fa-image"></i> Wallpapers</a></li>
+              <li class="list-group-item"><a href="{{ route('categories.index',$data->slug) }}"><i class="fa fa-list"></i> Categories</a></li>
+              <li class="list-group-item"><a href="{{ route('wallpapers.index',$data->slug) }}"><i class="fa fa-image"></i> Wallpapers</a></li>
             </ul>
         </div> 
         <div class="col-md-9">

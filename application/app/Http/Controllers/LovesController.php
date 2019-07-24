@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Love;
 
 class LovesController extends Controller
 {
@@ -23,7 +24,40 @@ class LovesController extends Controller
      */
     public function create()
     {
-        //
+        $data = [];
+
+        if($request->ajax()){
+
+            $object = new Love();
+            $object->device_id = $request->input('device_id');
+            $object->wallpaper_id = $request->input('wallpaper_id');
+
+            if($object->save()){
+
+                $data = [
+                    'message' => 'Saved Successfully!!',
+                    'error' => 'no'
+                ];
+
+            }else{
+
+                $data = [
+                    'message' => 'Error to Saved!!',
+                    'error' => 'yes'
+                ];
+                
+            }
+
+        }else{
+
+            $data = [
+                'message' => 'The Request not Ajax!!!',
+                'error' => 'yes'
+            ];
+
+        }
+
+        return response()->json($data);
     }
 
     /**

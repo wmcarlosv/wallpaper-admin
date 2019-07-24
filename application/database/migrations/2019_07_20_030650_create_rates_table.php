@@ -15,7 +15,8 @@ class CreateRatesTable extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('device_id',100)->nullable();
+            $table->string('device_id',100)->nullable(false);
+            $table->integer('stars')->nullable(false);
             $table->bigInteger('wallpaper_id')->unsigned();
             $table->timestamps();
 

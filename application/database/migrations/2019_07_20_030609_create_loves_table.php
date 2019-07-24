@@ -15,7 +15,7 @@ class CreateLovesTable extends Migration
     {
         Schema::create('loves', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('device_id',100)->nullable();
+            $table->string('device_id',100)->nullable(false);
             $table->bigInteger('wallpaper_id')->unsigned();
             $table->timestamps();
 

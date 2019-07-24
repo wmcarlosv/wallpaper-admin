@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Rate;
 
 class RatesController extends Controller
 {
@@ -34,7 +35,41 @@ class RatesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [];
+
+        if($request->ajax()){
+
+            $object = new Rate();
+            $object->device_id = $request->input('device_id');
+            $object->stars = $request->input('stars');
+            $object->wallpaper_id = $request->input('wallpaper_id');
+
+            if($object->save()){
+
+                $data = [
+                    'message' => 'Saved Successfully!!',
+                    'error' => 'no'
+                ];
+
+            }else{
+
+                $data = [
+                    'message' => 'Error to Saved!!',
+                    'error' => 'yes'
+                ];
+                
+            }
+
+        }else{
+
+            $data = [
+                'message' => 'The Request not Ajax!!!',
+                'error' => 'yes'
+            ];
+
+        }
+
+        return response()->json($data);
     }
 
     /**

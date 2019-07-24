@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Image;
 use App\Wallpaper;
 use App\Application;
 
@@ -21,8 +22,7 @@ class WallpapersController extends Controller
 
         $title = "Wallpapers";
         $application = Application::where('slug','=',$slug)->first();
-        $data = Wallpaper::where('application_id','=',$application->id)->get();
-        
+        $data = $application->wallpapers;
 
         return view($this->view.'index',['title' => $title, 'data' => $data, 'application' => $application]);
     }
@@ -51,11 +51,34 @@ class WallpapersController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            
+            'category_id' => 'required',
+            'application_id' => 'required',
+            'wallpaper_url' => 'required|mimes:jpeg,png,jpg'
         ]);
 
         $object = new Wallpaper();
-        
+        $object->category_id = $request->input('category_id');
+        $object->application_id = $request->input('application_id');
+
+        if($request->hasFile('wallpaper_url')){
+
+            $thumbnail = $request->wallpaper_url->store('wallpapers/thumbnails');
+            //Resize image here
+            $thumbnailpath = storage_path('app/'.$thumbnail);
+            $img = Image::make($thumbnailpath)->fit(200, 300, function($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save($thumbnailpath);
+
+            $object->thumbnail =  $thumbnail;
+            $object->wallpaper_url = $request->wallpaper_url->store('wallpapers');
+        }else{
+            $object->thumbnail = NULL;
+            $object->wallpaper_url = NULL;
+        }
+
+        $object->tags = $request->input('tags');
+
         $application = Application::findorfail($request->input('application_id'))->first();
 
         if($object->save()){
@@ -104,12 +127,34 @@ class WallpapersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-           
+         $request->validate([
+            'category_id' => 'required',
+            'application_id' => 'required',
+            'wallpaper_url' => 'required|mimes:jpeg,png,jpg'
         ]);
 
         $object = Wallpaper::findorfail($id);
-        $object->name = $request->input('name');
+        $object->category_id = $request->input('category_id');
+
+        if($request->hasFile('wallpaper_url')){
+
+            Storage::delete($object->thumbnail);
+            Storage::delete($object->wallpaper_url);
+            
+            $thumbnail = $request->wallpaper_url->store('wallpapers/thumbnails');
+            //Resize image here
+            $thumbnailpath = storage_path('app/'.$thumbnail);
+            $img = Image::make($thumbnailpath)->fit(200, 300, function($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save($thumbnailpath);
+            
+            $object->thumbnail =  $thumbnail;
+            $object->wallpaper_url = $request->wallpaper_url->store('wallpapers');
+        }
+
+        $object->tags = $request->input('tags');
+
         $application = Application::findorfail($request->input('application_id'))->first();
 
         if($object->update()){

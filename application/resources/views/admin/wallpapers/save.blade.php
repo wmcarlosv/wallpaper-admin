@@ -23,6 +23,15 @@
     			{!! Form::open(['route' => ['wallpapers.update',$data->id], 'method' => 'PUT', 'files' => true]) !!}
     		@endif
                 <div class="form-group">
+                    <label for="category_id">Category: </label>
+                    <select class="form-control" name="category_id" id="category_id">
+                        <option>-</option>
+                        @foreach($application->categories as $cat)
+                            <option value="{{ $cat->id }}" @if($cat->id == @$data->category_id) selected = 'selected' @endif>{{ $cat->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="wallpaper_url">Wallpaper:</label>
                     @if(!empty(@$data->thumbnail))
                         <br />
@@ -32,6 +41,10 @@
                     @endif
                     <input type="file" name="wallpaper_url" class="form-control"/>
                     <input type="hidden" name="application_id" value="{{ $application->id }}">
+                </div>
+                <div class="form-group">
+                    <label for="tags">Tags:</label>
+                    <input type="text" name="tags" value="{{ @$data->tags }}" id="tags" placeholder="Tag1,Tag2,Tag3" class="form-control" />
                 </div>
     			<button class="btn btn-success"><i class="fa fa-floppy-o"></i> Save</button>
     			<a class="btn btn-danger" href="{{ route('wallpapers.index',$application->slug) }}"><i class="fa fa-times"></i> Cancel</a>

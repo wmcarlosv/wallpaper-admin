@@ -43,6 +43,7 @@
                                             <label class="label label-warning">Not Image</label>
                                         @endif    
                                     </td>
+                                    <td>{{ $d->tags }}</td>
                                     <td>
                                         @if($d->status == 'active')
                                             <label class="label label-success">Active</label>

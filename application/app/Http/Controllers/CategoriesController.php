@@ -21,7 +21,7 @@ class CategoriesController extends Controller
 
         $title = "Categories";
         $application = Application::where('slug','=',$slug)->first();
-        $data = Category::where('application_id','=',$application->id)->get();
+        $data = $application->categories;
         
 
         return view($this->view.'index',['title' => $title, 'data' => $data, 'application' => $application]);

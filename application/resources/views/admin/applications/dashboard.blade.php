@@ -47,7 +47,7 @@
         <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h2>Last 100 Wallpapers Uploads</h2>
+                    <h2>Last Wallpapers Uploads</h2>
                 </div>
                 <div class="panel-body">
                     <table class="table table-bordered table-striped">
@@ -55,15 +55,19 @@
                             <th>ID</th>
                             <th>Category</th>
                             <th>Thumbnail</th>
-                            <th>View</th>
                         </thead>
                         <tbody>
-                            @foreach($data->wallpapers() as $wall)
+                            @foreach($data->wallpapers as $wall)
                                 <tr>
                                     <td>{{ $wall->id }}</td>
                                     <td>{{ $wall->category->name }}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                      @if(!empty($wall->thumbnail))
+                                        <a href="{{ asset('application/storage/app/'.$wall->wallpaper_url) }}" target="_blank"><img src="{{ asset('application/storage/app/'.$wall->thumbnail) }}" width="80" height="120" class="img-thumbnail"></a>
+                                      @else
+                                        <label class="label label-warning">Not Image</label>
+                                      @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

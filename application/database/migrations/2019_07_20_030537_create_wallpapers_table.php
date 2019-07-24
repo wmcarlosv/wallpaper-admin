@@ -20,6 +20,7 @@ class CreateWallpapersTable extends Migration
             $table->string('thumbnail',100)->nullable(false);
             $table->string('wallpaper_url',100)->nullable(false);
             $table->string('tags',200)->nullable();
+            $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();
 
             $table->foreign('application_id')->references('id')->on('applications')->onUpdate('restrict')->onDelete('restrict');

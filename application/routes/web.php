@@ -34,6 +34,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 	Route::get('/application/{slug}/categories/create','CategoriesController@create')->name('categories.create');
 	Route::get('/application/{slug}/categories/edit/{id}','CategoriesController@edit')->name('categories.edit');
 
-	Route::resource('wallpapers','WallpapersController',['except' => ['index']]);
+	Route::resource('wallpapers','WallpapersController',['except' => ['index','create','edit']]);
+
 	Route::get('/application/{slug}/wallpapers','WallpapersController@index')->name('wallpapers.index');
+	Route::get('/application/{slug}/wallpapers/create','WallpapersController@create')->name('wallpapers.create');
+	Route::get('/application/{slug}/wallpapers/edit/{id}','WallpapersController@edit')->name('wallpapers.edit');
 });

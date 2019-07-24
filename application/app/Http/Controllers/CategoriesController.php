@@ -20,8 +20,9 @@ class CategoriesController extends Controller
     {
 
         $title = "Categories";
-        $data = Category::all();
         $application = Application::where('slug','=',$slug)->first();
+        $data = Category::where('application_id','=',$application->id)->get();
+        
 
         return view($this->view.'index',['title' => $title, 'data' => $data, 'application' => $application]);
     }
@@ -98,7 +99,7 @@ class CategoriesController extends Controller
         $title = "Edit Category";
         $action = "edit";
 
-        $application = Application::where('slug','=',$slug)->first();
+        $application = Application::findorfail($data->application_id);
 
         return view($this->view.'save',['title' => $title,'action' => $action, 'data' => $data, 'application' => $application]); 
     }
@@ -119,7 +120,6 @@ class CategoriesController extends Controller
 
         $object = Category::findorfail($id);
         $object->name = $request->input('name');
-        $object->application_id = $request->input('application_id');
 
         $application = Application::findorfail($request->input('application_id'))->first();
 

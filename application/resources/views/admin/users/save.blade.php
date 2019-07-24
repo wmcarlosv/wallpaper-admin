@@ -18,9 +18,9 @@
     	</div>
     	<div class="panel-body">
     		@if($action == 'create')
-    			{!! Form::open(['route' => 'users.store', 'method' => 'POST']) !!}
+    			{!! Form::open(['route' => 'users.store', 'method' => 'POST', 'autocomplete' => 'off']) !!}
     		@else
-    			{!! Form::open(['route' => ['users.update',$data->id], 'method' => 'PUT']) !!}
+    			{!! Form::open(['route' => ['users.update',$data->id], 'method' => 'PUT', 'autocomplete' => 'off']) !!}
     		@endif
     			<div class="form-group">
     				<label for="name">Name:</label>

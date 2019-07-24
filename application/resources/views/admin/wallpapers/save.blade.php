@@ -18,9 +18,9 @@
     	</div>
     	<div class="panel-body">
     		@if($action == 'create')
-    			{!! Form::open(['route' => 'wallpapers.store', 'method' => 'POST', 'files' => true]) !!}
+    			{!! Form::open(['route' => 'wallpapers.store', 'method' => 'POST', 'files' => true, 'autocomplete' => 'off']) !!}
     		@else
-    			{!! Form::open(['route' => ['wallpapers.update',$data->id], 'method' => 'PUT', 'files' => true]) !!}
+    			{!! Form::open(['route' => ['wallpapers.update',$data->id], 'method' => 'PUT', 'files' => true, 'autocomplete' => 'off']) !!}
     		@endif
                 <div class="form-group">
                     <label for="category_id">Category: </label>

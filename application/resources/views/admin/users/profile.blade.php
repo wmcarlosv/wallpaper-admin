@@ -17,7 +17,7 @@
     		<h2>{{ $title }}</h2>
     	</div>
     	<div class="panel-body">
-    		{!! Form::open(['route' => ['update_profile',$data->id], 'method' => 'PUT']) !!}
+    		{!! Form::open(['route' => ['update_profile',$data->id], 'method' => 'PUT', 'autocomplete' => 'off']) !!}
 
     			<div class="form-group">
     				<label for="name">Name:</label>
@@ -38,7 +38,7 @@
             <h2>Change Password</h2>
         </div>
         <div class="panel-body">
-            {!! Form::open(['route' => ['update_password',$data->id], 'method' => 'PUT']) !!}
+            {!! Form::open(['route' => ['update_password',$data->id], 'method' => 'PUT', 'autocomplete' => 'off']) !!}
 
                 <div class="form-group">
                     <label for="password">Password:</label>

@@ -10,6 +10,7 @@ use App\Application;
 class CategoriesController extends Controller
 {
     private $view = 'admin.categories.';
+    private $router = 'categories.index';
     /**
      * Display a listing of the resource.
      *
@@ -71,7 +72,7 @@ class CategoriesController extends Controller
             flash()->overlay('Error to Saved!!','Error');
         }
 
-        return redirect()->route('categories.index',$application->slug);
+        return redirect()->route($this->router,$application->slug);
     }
 
     /**
@@ -133,7 +134,7 @@ class CategoriesController extends Controller
             flash()->overlay('Error to Updated!!','Error');
         }
 
-        return redirect()->route('categories.index',$application->slug);
+        return redirect()->route($this->router,$application->slug);
     }
 
     /**
@@ -160,6 +161,6 @@ class CategoriesController extends Controller
             flash()->overlay('Error to Updated!!','Error');
         }
 
-        return redirect()->route('categories.index',$application->slug);
+        return redirect()->route($this->router,$application->slug);
     }
 }

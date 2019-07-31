@@ -13,6 +13,13 @@ class ApiController extends Controller
 	public function __construct(){
 		$this->api = new Api();
 	}
+
+	public function responseJson($data){
+    	return response()
+                    ->json($data)
+                    ->header('Access-Control-Allow-Origin','*');
+    }
+
     public function api_home($api_key = NULL){
 
         $limit = 10;
@@ -23,8 +30,22 @@ class ApiController extends Controller
             'rates' => $this->api->rates($api_key, $limit)
         ];
 
-        return response()
-                    ->json($data)
-                    ->header('Access-Control-Allow-Origin','*');
+        return $this->responseJson($data);
+    }
+
+    public function wallpapers($api_key = NULL){
+    	$data = [
+    		'wallpapers' => $this->api->wallpapers($api_key)
+    	];
+
+    	return $this->responseJson($data);
+    }
+
+    public function categories($api_key = NULL){
+    	$data = [
+    		'categories' => $this->api->categories($api_key)
+    	];
+
+    	return $this->responseJson($data);
     }
 }

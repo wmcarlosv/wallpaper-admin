@@ -39,7 +39,7 @@
 				  <span class="info-box-icon bg-red"><i class="fa fa-image"></i></span>
 				  <div class="info-box-content">
 				    <span class="info-box-text">Wallpapers</span>
-				    <span class="info-box-number">0</span>
+				    <span class="info-box-number">{{ $wallpapers->count() }}</span>
 				  </div>
 				  <!-- /.info-box-content -->
 				</div>
@@ -59,9 +59,22 @@
 	    						<th>ID</th>
 	    						<th>Application</th>
 	    						<th>Thumbnail</th>
-	    						<th>View</th>
+	    						<th>-</th>
 	    					</thead>
-	    					<tbody></tbody>
+	    					<tbody>
+	    						@foreach($wallpapers as $w)
+		    						<tr>
+		    							<td>{{ $w->id }}</td>
+		    							<td>{{ $w->application->name }}</td>
+		    							<td>
+		    								<img src="{{ asset('application/storage/app/'.$w->thumbnail) }}" width="60" height="100" class="img-thumbnail" />
+		    							</td>
+		    							<td>
+		    								<a class="btn btn-info" href="{{ asset('application/storage/app/'.$w->wallpaper_url) }}" target="_blank"><i class="fa fa-eye"></i> View</a>
+		    							</td>
+		    						</tr>
+		    					@endforeach
+	    					</tbody>
 	    				</table>
 	    			</div>
 	    		</div>

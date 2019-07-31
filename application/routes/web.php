@@ -40,3 +40,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 	Route::get('/application/{slug}/wallpapers/create','WallpapersController@create')->name('wallpapers.create');
 	Route::get('/application/{slug}/wallpapers/edit/{id}','WallpapersController@edit')->name('wallpapers.edit');
 });
+
+Route::group(['prefix' => 'api/v1'], function(){
+	Route::get('/{api_key}/home','HomeController@api_home');
+});

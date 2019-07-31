@@ -5,9 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class Home extends Model
+class Api extends Model
 {
-
     public function last($api_key, $limit){
         $last = DB::table("wallpapers")
                 ->leftJoin('applications','applications.id','=','wallpapers.application_id')
@@ -62,5 +61,4 @@ class Home extends Model
         }
         return $data;
     }
-
 }

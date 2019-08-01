@@ -15,7 +15,8 @@ class Api extends Model
                 'category_id' => $rs->category_id,
                 'category_name' => $rs->category_name,
                 'thumbnail' => env('APP_URL') . 'application/storage/app/'.$rs->thumbnail,
-                'wallpaper' => env('APP_URL') . 'application/storage/app/'.$rs->wallpaper_url
+                'wallpaper' => env('APP_URL') . 'application/storage/app/'.$rs->wallpaper_url,
+                'tags' => ((!empty($rs->tags)) ? $rs->tags : NULL)
             ];
             array_push($data, $tmp);
         }
@@ -93,5 +94,34 @@ class Api extends Model
     	}
 
     	return $categories;
+    }
+
+    public function wallpapers_by_category($api_key = NULL, $category_id = NULL){
+    	$category = DB::table("categories")->select('name')->where('id','=',$category_id)->first();
+    	$wall = DB::table("wallpapers")
+                ->leftJoin('applications','applications.id','=','wallpapers.application_id')
+                ->leftJoin('categories','categories.id','=','wallpapers.category_id')
+                ->selectRaw('wallpapers.id as wallpaper_id, categories.id as category_id, categories.name as category_name, wallpapers.thumbnail, wallpapers.wallpaper_url')
+                ->where('applications.api_key','=',$api_key)
+                ->where('wallpapers.category_id','=',$category_id)
+                ->orderBy('wallpapers.created_at','DESC')
+                ->get();
+
+        $data = [
+        	'category' => $category,
+        	'wallpapers' => $this->home_push_data($wall)
+        ];
+
+        return $data;
+    }
+
+    public function wallpaper($id){
+    	$wall = DB::table("wallpapers")
+                ->leftJoin('categories','categories.id','=','wallpapers.category_id')
+                ->selectRaw('wallpapers.id as wallpaper_id, categories.id as category_id, categories.name as category_name, wallpapers.thumbnail, wallpapers.wallpaper_url, wallpapers.tags as tags')
+                ->where('wallpapers.id','=',$id)
+                ->get();
+
+        return $this->home_push_data($wall);
     }
 }

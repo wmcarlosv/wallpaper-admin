@@ -45,4 +45,6 @@ Route::group(['prefix' => 'api/v1'], function(){
 	Route::get('/{api_key}/home','ApiController@api_home');
 	Route::get('/{api_key}/wallpapers','ApiController@wallpapers');
 	Route::get('/{api_key}/categories','ApiController@categories');
+	Route::get('/{api_key}/categories/{id}','ApiController@wallpaper_by_category');
+	Route::get('/wallpaper/{id}','ApiController@wallpaper');
 });

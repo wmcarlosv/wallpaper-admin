@@ -48,4 +48,16 @@ class ApiController extends Controller
 
     	return $this->responseJson($data);
     }
+
+    public function wallpaper_by_category($api_key, $category_id){
+    	return $this->responseJson($this->api->wallpapers_by_category($api_key, $category_id));
+    }
+
+    public function wallpaper($id){
+    	$data = [
+    		'wallpaper' => $this->api->wallpaper($id)[0]
+    	];
+
+    	return $this->responseJson($data);
+    }
 }

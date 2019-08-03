@@ -9,7 +9,6 @@ class ApiController extends Controller
 {
 	private $api;
 
-
 	public function __construct(){
 		$this->api = new Api();
 	}
@@ -21,15 +20,12 @@ class ApiController extends Controller
     }
 
     public function api_home($api_key = NULL){
-
         $limit = 10;
-
         $data = [
-            'last' => $this->api->last($api_key, $limit),
-            'popular' => $this->api->popular($api_key, $limit),
-            'rates' => $this->api->rates($api_key, $limit)
+            'latest' => $this->api->latest($api_key, $limit),
+            'viewed' => $this->api->viewed($api_key, $limit),
+            'rated' => $this->api->rated($api_key, $limit)
         ];
-
         return $this->responseJson($data);
     }
 
